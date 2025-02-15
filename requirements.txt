@@ -1,0 +1,6 @@
+manim
+matplotlib
+numpy
+torch
+clip
+PIL
