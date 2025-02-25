@@ -2,8 +2,8 @@ import pygame
 import random
 import numpy as np
 
-from .clip import CLIP
-from .Boid import Boid
+from clip import CLIP
+from boid import Boid
 
 p_of_cohere = 0.1
 r_of_cohere = 150

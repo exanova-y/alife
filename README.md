@@ -1,5 +1,8 @@
 ### A* life!
 
+Evolve various life forms in your computer just with language prompts!   
+Work in progress...   
+
 **Setup**   
 I'm using the python package manager uv create a virtual environment and to speed up installation.   
 `uv init`   
@@ -11,6 +14,7 @@ Boids substrate
 ![](/images/pic-1.png)
 
 **Next steps:**
-- Add multiple substrates
-- Test initial topologies
+- Finish implementing clip model
+- Implement topology frameworks
 - Evaluate with complexity measures
+- Add GUI
