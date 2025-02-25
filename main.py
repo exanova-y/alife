@@ -2,6 +2,27 @@ import pygame
 import random
 import numpy as np
 from Boid import Boid
+p_of_cohere = 0.1
+r_of_cohere = 150
+p_of_align = 0.1
+r_of_align = 50
+
+
+def distance_between_vectors(vectors):
+    '''calculate pairwise distance between vectors, returns
+    a 2d list'''
+    vector_num = len(vectors)
+    distance_list = [[0] * vector_num for _ in range(vector_num)]
+    for i in range(vector_num):
+        distance_list[i][i] = (0, i)
+        for j in range(vector_num):
+            if i < j:
+                # Calculate the distance between two vectors.
+                distance = np.linalg.norm(np.subtract(vectors[i], vectors[j]))
+                # Store the calculated distance at index i,j.
+                distance_list[i][j] = (distance, j)
+                distance_list[j][i] = (distance, i)
+    return distance_list
 
 def main():
     pygame.init()
@@ -24,18 +45,22 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+
+        # Calculate distances between all boids
+        dlist = distance_between_vectors([boid.position for boid in boid_list])
+        # Update each boid, passing the full boid list for separation calculations
         for boid in boid_list:
-            boid.update()
+            boid.update(dlist, p_of_cohere, r_of_cohere, p_of_align, r_of_align, boid_list)
 
         screen.fill((0, 0, 0))  # Black background
         for boid in boid_list:
             boid.render(screen)
-            
+
         pygame.display.flip()
         clock.tick(fps)
 
 
+
+
 if __name__ == "__main__":
     main()
-                
-    
