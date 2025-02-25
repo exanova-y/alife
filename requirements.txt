@@ -3,4 +3,4 @@ matplotlib
 numpy
 torch
 clip
-PIL
+pygame

@@ -1,3 +1,11 @@
 # package managers
 .flox
+.venv
+.env
+.zshrc
+justfile
+uv.lock
+
+# compiled files 
 __pycache__
+*.pyc
