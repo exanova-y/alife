@@ -1,12 +1,19 @@
 import pygame
 import random
 import numpy as np
-from Boid import Boid
+
+from .clip import CLIP
+from .Boid import Boid
+
 p_of_cohere = 0.1
 r_of_cohere = 150
 p_of_align = 0.1
 r_of_align = 50
 
+def create_fm(fm_name):
+    if fm_name == "clip":
+        fm = CLIP()
+    return fm
 
 def distance_between_vectors(vectors):
     '''calculate pairwise distance between vectors, returns
@@ -40,6 +47,19 @@ def main():
 
     clock = pygame.time.Clock()
     fps = 60
+
+
+    sample_prompts = ["a flock of boids", "boids circling"]
+    prompt = sample_prompts[1]
+    fm = create_fm("clip")
+    z_txt = fm.embed_txt(sample_prompts)
+    # to be continued
+    # 1. Embeds each text prompt
+    # 2. Runs the simulation and captures images at multiple time steps
+    # 3. Compares each image embedding to the corresponding text embedding
+    # 4. Optimizes the boid parameters to make the simulation evolve through states that match each prompt in sequence
+
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

@@ -23,7 +23,7 @@ class Boid:
         self.width = width
         self.height = height
 
-    def separate(self, boids, separation_radius=25, separation_strength=0.05):
+    def separate(self, boids, separation_radius=20, separation_strength=0.5):
         """
         Apply separation rule - avoid crowding neighbors
         """
@@ -40,7 +40,8 @@ class Boid:
                     diff = self.position - other_boid.position
                     # Normalize and weight by distance (closer boids have stronger effect)
                     if distance > 0:  # Avoid division by zero
-                        diff = diff / distance
+                        # Inverse square law - closer boids have much stronger effect
+                        diff = diff / (distance * distance)
                     separation_force += diff
                     too_close_count += 1
         
@@ -107,7 +108,7 @@ class Boid:
         """
         Limit the speed of the boid to max_speed
         """
-        speed = np.linalg.norm(self.velocity[:5])
+        speed = np.linalg.norm(self.velocity[:2])  # Fixed: was using [:5] instead of [:2]
         if speed > self.max_speed:
             # Scale velocity to max_speed
             self.velocity[0] = (self.velocity[0] / speed) * self.max_speed

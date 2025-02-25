@@ -1,6 +1,7 @@
-manim
 matplotlib
 numpy
 torch
-clip
 pygame
+jax
+einops
+transformers
